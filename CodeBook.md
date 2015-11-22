@@ -1,11 +1,14 @@
-#CodeBook
+#Getting and Cleaning Data Project
 
-This is a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data.
 
-#The data source
+#Description
 
-* Original data: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
-* Original description of the dataset: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+Additional information about the variables, data and transformations used in the course project for the Johns Hopkins Getting and Cleaning Data course.
+
+#Source Data
+
+A full description of the data used in this project can be found at The UCI Machine Learning Repository
+
 
 #Data Set Information
 
@@ -13,51 +16,42 @@ The experiments have been carried out with a group of 30 volunteers within an ag
 
 The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
 
-#The data
+#Attribute Information
 
-The dataset includes the following files:
+For each record in the dataset it is provided:
 
-* 'README.txt'
+Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
+Triaxial Angular velocity from the gyroscope.
+A 561-feature vector with time and frequency domain variables.
+Its activity label.
+An identifier of the subject who carried out the experiment.
 
-* 'features_info.txt': Shows information about the variables used on the feature vector.
+#Section 1. Merge the training and the test sets to create one data set.
 
-* 'features.txt': List of all features.
+After setting the source directory for the files, read into tables the data located in
 
-* 'activity_labels.txt': Links the class labels with their activity name.
+* features.txt
+* activity_labels.txt
+* subject_train.txt
+* x_train.txt
+* y_train.txt
+* subject_test.txt
+* x_test.txt
+* y_test.txt
+Assign column names and merge to create one data set.
 
-* 'train/X_train.txt': Training set.
+#Section 2. Extract only the measurements on the mean and standard deviation for each measurement.
 
-* 'train/y_train.txt': Training labels.
+Create a logcal vector that contains TRUE values for the ID, mean and stdev columns and FALSE values for the others. Subset this data to keep only the necessary columns.
 
-* 'test/X_test.txt': Test set.
+#Section 3. Use descriptive activity names to name the activities in the data set
 
-* 'test/y_test.txt': Test labels.
+Merge data subset with the activityType table to cinlude the descriptive activity names
 
-The following files are available for the train and test data. Their descriptions are equivalent.
+#Section 4. Appropriately label the data set with descriptive activity names.
 
-* 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30.
+Use gsub function for pattern replacement to clean up the data labels.
 
-* 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis.
+#Section 5. Create a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-* 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
-
-* 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
-
-#Transformation details
-
-There are 5 parts:
-
-1. Merges the training and the test sets to create one data set.
-2. Extracts only the measurements on the mean and standard deviation for each measurement.
-3. Uses descriptive activity names to name the activities in the data set
-4. Appropriately labels the data set with descriptive activity names.
-5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-
-#How run_analysis.R implements the above steps:
-
-* Require reshapre2 and data.table librareis.
-* Load both test and train data
-* Load the features and activity labels.
-* Extract the mean and standard deviation column names and data.
-* Process the data. There are two parts processing test and train data respectively.
-* Merge data set.
+Per the project instructions, we need to produce only a data set with the average of each veriable for each activity and subject
